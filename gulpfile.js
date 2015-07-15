@@ -8,7 +8,7 @@ var gutil = require('gulp-util');
 gulp.task('test', function() {
   return gulp.src(['./server/tests/specs/*.js'], {read: false})
     .pipe(mocha({reporter: 'spec'}))
-    .on('error', guitl.log)
+    .on('error', gutil.log)
     .once('end', function() {
       process.exit();
     });
