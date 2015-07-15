@@ -11,7 +11,7 @@ var imgurApi = {
     request
       .get("https://api.imgur.com/3/gallery/r/" + randomSubreddit)
       .set({
-        Authorization: secrets.IMGUR_CLIENT_ID
+        Authorization: 'Client-ID ' + secrets.IMGUR_CLIENT_ID
       })
       .end(function(err, doc) {
         cb(err, doc);
