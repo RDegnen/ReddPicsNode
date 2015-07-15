@@ -9,7 +9,18 @@ var imgurApi = {
     var randomSubreddit = subredditArray[Math.floor(Math.random() * subredditArray.length)];
 
     request
-      .get("https://api.imgur.com/3/gallery/r/" + randomSubreddit)
+      .get('https://api.imgur.com/3/gallery/r/' + randomSubreddit)
+      .set({
+        Authorization: 'Client-ID ' + secrets.IMGUR_CLIENT_ID
+      })
+      .end(function(err, doc) {
+        cb(err, doc);
+      });
+  },
+
+  getGallery: function(subreddit, sort, window, page, cb) {
+    request
+      .get('https://api.imgur.com/3/gallery/r/' + subreddit + '/' + sort + '/' + window + '/' + page)
       .set({
         Authorization: 'Client-ID ' + secrets.IMGUR_CLIENT_ID
       })

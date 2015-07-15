@@ -3,11 +3,9 @@
 
 var http = require('http');
 var express = require('express');
-
 var app = express();
 var port = process.env.PORT || 3000;
-// Express config
-require('./server/config/express');
+require('./server/config/express')(app, express);
 
 app.use('/', require('./server/routes'));
 
