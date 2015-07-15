@@ -4,6 +4,7 @@
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
+var fs = require('fs');
 
 var config = function(app, express) {
 
