@@ -3,12 +3,13 @@
 
 var http = require('http');
 var express = require('express');
-
 var app = express();
+var port = process.env.PORT || 3000;
+require('./server/config/express')(app, express);
 
-// Express config
-require('./server/config/express');
+app.use('/', require('./server/routes'));
 
-var server = http.createServer(app);
-
-server.listen(3000);
+http.createServer(app)
+  .listen((port), function() {
+    console.log('Server listening on port ' + port);
+});

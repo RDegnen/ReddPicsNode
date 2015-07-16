@@ -1,5 +1,6 @@
 node_modules
 dist
+server/config/secrets.js
 .npm-debug.log
 .DS_Store
 .tmp
