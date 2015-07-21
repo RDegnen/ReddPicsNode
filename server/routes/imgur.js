@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 var imgur = require('../api/controllers/imgur');
 var NodeCache = require('node-cache');
-var imgurCache = new NodeCache({stdTTL: 120, checkperiod: 140, useClones: false});
+var imgurCache = new NodeCache({stdTTL: 1200, checkperiod: 1400, useClones: false});
 
 router.get('/index', function(req, res) {
 
@@ -27,14 +27,15 @@ router.post('/gallery', function(req, res) {
     if (err) {
       throw err;
     }
+    var key = subreddit + sort + window + page;
 
-    imgurCache.get('key', function(err, value) {
+    imgurCache.get(key, function(err, value) {
       if (err) {
         throw err;
       }
 
       if (value === undefined) {
-        imgurCache.set('key', imgurRes, function(err, success) {
+        imgurCache.set(key, imgurRes, function(err, success) {
           if (err) {
             throw err;
           } else if (success) {
@@ -45,6 +46,7 @@ router.post('/gallery', function(req, res) {
       } else {
         console.log('Retrieving from cache...');
         res.json(value);
+        // console.log(value.req.path);
       }
     });
   });
