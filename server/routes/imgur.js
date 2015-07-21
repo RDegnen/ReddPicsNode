@@ -3,6 +3,8 @@
 var express = require('express');
 var router = express.Router();
 var imgur = require('../api/controllers/imgur');
+var NodeCache = require('node-cache');
+var imgurCache = new NodeCache({stdTTL: 120, checkperiod: 140, useClones: false});
 
 router.get('/index', function(req, res) {
 
@@ -26,7 +28,25 @@ router.post('/gallery', function(req, res) {
       throw err;
     }
 
-    res.json(imgurRes);
+    imgurCache.get('key', function(err, value) {
+      if (err) {
+        throw err;
+      }
+
+      if (value === undefined) {
+        imgurCache.set('key', imgurRes, function(err, success) {
+          if (err) {
+            throw err;
+          } else if (success) {
+            console.log('Saved to cache!');
+            res.json(imgurRes);
+          }
+        });
+      } else {
+        console.log('Retrieving from cache...');
+        res.json(value);
+      }
+    });
   });
 });
 

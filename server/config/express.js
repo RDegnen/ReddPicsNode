@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var path = require('path');
 var fs = require('fs');
 var logger = require('morgan');
-var errorhandler = require('errorhandler')
+var errorhandler = require('errorhandler');
 
 var config = function(app, express) {
 
