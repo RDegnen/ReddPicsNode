@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 var imgur = require('../api/controllers/imgur');
 var NodeCache = require('node-cache');
-var imgurCache = new NodeCache({stdTTL: 1200, checkperiod: 1400, useClones: false});
+var imgurCache = new NodeCache({stdTTL: 1200, checkperiod: 1205, useClones: false});
 
 router.get('/index', function(req, res) {
 
@@ -46,7 +46,6 @@ router.post('/gallery', function(req, res) {
       } else {
         console.log('Retrieving from cache...');
         res.json(value);
-        // console.log(value.req.path);
       }
     });
   });
