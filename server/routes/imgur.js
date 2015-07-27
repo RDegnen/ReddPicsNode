@@ -12,13 +12,13 @@ router.get('/index', function(req, res) {
     if (err) {
       throw err;
     }
-
-    res.json(imgurRes);
+    var parse = JSON.parse(imgurRes.text);
+    res.json(parse);
   });
 });
 
 router.post('/gallery', function(req, res) {
-  var subreddit = req.body.subreddit || req.query.subreddit;
+  var subreddit = req.body.name || req.query.name;
   var sort = req.body.sort || req.query.sort;
   var window = req.body.window || req.query.window;
   var page = req.body.page || req.query.page;
@@ -40,12 +40,14 @@ router.post('/gallery', function(req, res) {
             throw err;
           } else if (success) {
             console.log('Saved to cache!');
-            res.json(imgurRes);
+            var parse = JSON.parse(imgurRes.text);
+            res.json(parse);
           }
         });
       } else {
         console.log('Retrieving from cache...');
-        res.json(value);
+        var parse = JSON.parse(value.text);
+        res.json(parse);
       }
     });
   });
