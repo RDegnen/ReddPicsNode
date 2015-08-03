@@ -23,6 +23,7 @@ var config = function(app, express) {
 
   app.use(cookieParser());
 
+  app.use('/', require('../routes'));
 
   if (process.env.NODE_ENV === 'development') {
     // only use in development
